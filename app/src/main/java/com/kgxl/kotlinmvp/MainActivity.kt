@@ -3,13 +3,9 @@ package com.kgxl.kotlinmvp
 import android.util.Log
 import android.widget.Toast
 import com.kgxl.base.BaseActivity
-import com.kgxl.base.BaseMvpActivity
-import com.kgxl.common.base.BaseBean
-import com.kgxl.common.base.BaseRxPresenter
 import com.kgxl.common.widget.BaseLoadingDialog
-import kotlin.math.asin
 
-class MainActivity : BaseMvpActivity<TestContract.TestView>(),TestContract.TestView {
+class MainActivity : BaseActivity(),TestContract.TestView {
     override fun initData() {
         val aa = listOf(10)
         aa.forEachIndexed { index, i ->
@@ -21,9 +17,6 @@ class MainActivity : BaseMvpActivity<TestContract.TestView>(),TestContract.TestV
         testPresenterImpl.loadTask()
     }
 
-    override fun getPresenter(): BaseRxPresenter<TestContract.TestView> {
-        return testPresenterImpl
-    }
 
     override fun initView() {
     }
