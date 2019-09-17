@@ -8,10 +8,10 @@ import io.reactivex.observers.DisposableObserver
  * Created by zjy on 2019-05-16
  *
  */
-abstract class BaseObserver<T : BaseBean>(
+abstract class BaseObserver<T>(
     private val iBaseView: IBaseView?
 ) :
-    DisposableObserver<T>() {
+    DisposableObserver<BaseBean<T>>() {
 
 
     override fun onStart() {
@@ -23,11 +23,11 @@ abstract class BaseObserver<T : BaseBean>(
     }
 
 
-    override fun onNext(t: T) {
+    override fun onNext(t: BaseBean<T>) {
         if (t.code == 200) {
-            success(t)
+            t.data?.let { success(it) }
         } else {
-            otherStateCode(t)
+            error(t.msg)
         }
     }
 
@@ -35,8 +35,6 @@ abstract class BaseObserver<T : BaseBean>(
         iBaseView?.hideDialog()
         error(GlobalExceptionHandle.handleException(e))
     }
-
-    open fun otherStateCode(data: T) {}
 
     abstract fun success(data: T)
     abstract fun error(errorMsg: String)

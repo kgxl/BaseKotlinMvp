@@ -29,10 +29,6 @@ class TestRxPresenterImpl(view: TestContract.TestView) : BaseRxPresenter<TestCon
                 override fun error(errorMsg: String) {
                     mView?.loadFailure(errorMsg)
                 }
-
-                override fun otherStateCode(data: TestBean) {
-                    mView?.loadTaskSuccess()
-                }
             })
         addSubscription(subscribe)
     }

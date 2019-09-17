@@ -1,5 +1,6 @@
 package com.kgxl.api
 
+import com.kgxl.common.base.BaseBean
 import com.kgxl.kotlinmvp.TestBean
 import io.reactivex.Observable
 import retrofit2.http.GET
@@ -13,5 +14,5 @@ import retrofit2.http.Url
 interface ApiService {
     @GET("v2/book/search")
     fun search(@Query("q") bookName: String,
-               @Query("apikey") appkey:String="0df993c66c0c636e29ecbb5344252a4a"):Observable<TestBean>
+               @Query("apikey") appkey:String="0df993c66c0c636e29ecbb5344252a4a"):Observable<BaseBean<TestBean>>
 }
