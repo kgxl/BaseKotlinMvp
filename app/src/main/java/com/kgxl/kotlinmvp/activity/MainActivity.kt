@@ -1,23 +1,19 @@
-package com.kgxl.kotlinmvp
+package com.kgxl.kotlinmvp.activity
 
-import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
-import com.kgxl.base.BaseActivity
-import com.kgxl.base.BaseMvpActivity
-import com.kgxl.common.base.BaseBean
+import com.kgxl.common.base.BaseMvpActivity
 import com.kgxl.common.base.BaseRxPresenter
+import com.kgxl.common.utils.bindView
 import com.kgxl.common.widget.BaseLoadingDialog
-import kotlin.math.asin
+import com.kgxl.kotlinmvp.R
+import com.kgxl.kotlinmvp.bean.BookBean
+import com.kgxl.kotlinmvp.mvp.TestContract
+import com.kgxl.kotlinmvp.mvp.TestRxPresenterImpl
 
-class MainActivity : BaseMvpActivity<TestContract.TestView>(),TestContract.TestView {
+class MainActivity : BaseMvpActivity<TestContract.TestView>(), TestContract.TestView {
+    private val mTvContent by bindView<TextView>(R.id.tv_content)
     override fun initData() {
-        val aa = listOf(10)
-        aa.forEachIndexed { index, i ->
-
-        }
-        for (i in 0 until aa.size - 1) {
-
-        }
         testPresenterImpl.loadTask()
     }
 
@@ -57,26 +53,17 @@ class MainActivity : BaseMvpActivity<TestContract.TestView>(),TestContract.TestV
         return R.layout.activity_main
     }
 
-    override fun loadTaskSuccess() {
-        println(test("1221"))
-        Log.e("zjy", "loadTaskSuccess")
+    override fun loadTaskSuccess(data: List<BookBean>) {
+        val stringBuffer = StringBuffer()
+        data.forEach {
+            stringBuffer.append(it.title + it.publisher + "\n")
+        }
+        mTvContent.text = stringBuffer.toString()
+        Toast.makeText(this, "loadTaskSuccess", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         testPresenterImpl.detachView()
-    }
-
-    public fun test(c: String): Boolean {
-        val a = c.toCharArray()
-        for (i in 0 until a.size) {
-            if (i >= a.size - i - 1) {
-                break;
-            }
-            if (a[i] != a[a.size - i - 1]) {
-                return false
-            }
-        }
-        return true
     }
 }

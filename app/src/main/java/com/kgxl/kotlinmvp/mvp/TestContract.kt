@@ -1,7 +1,8 @@
-package com.kgxl.kotlinmvp
+package com.kgxl.kotlinmvp.mvp
 
 import com.kgxl.base.IBasePresenter
 import com.kgxl.base.IBaseView
+import com.kgxl.kotlinmvp.bean.BookBean
 
 
 /**
@@ -9,7 +10,7 @@ import com.kgxl.base.IBaseView
  */
 interface TestContract {
     interface TestView : IBaseView {
-        fun loadTaskSuccess()
+        fun loadTaskSuccess(data:List<BookBean>)
         fun loadFailure(errorMsg: String)
     }
 
